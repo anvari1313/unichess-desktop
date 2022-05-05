@@ -4,6 +4,10 @@
 
 #include "game.h"
 #include <SDL_image.h>
+#include <vector>
+#include "piece.h"
+#include "king.h"
+#include "queen.h"
 
 Game::Game() {
     this->gWindow = nullptr;
@@ -20,7 +24,7 @@ void Game::Init() {
         return;
     } else {
         //Create window
-        this->gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
+        this->gWindow = SDL_CreateWindow("UniChess", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
                                          SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
         if (this->gWindow == nullptr) {
             printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -45,6 +49,18 @@ void Game::Init() {
 void Game::Run() {
     //Event handler
     SDL_Event e;
+
+    std::vector<Piece> pieces;
+    King k1(this->pieceSurface);
+    King k2(this->pieceSurface);
+    k2.Move(120, 10);
+
+    Queen queen(this->pieceSurface);
+    queen.Move(120, 50);
+
+    pieces.push_back(k1);
+    pieces.push_back(k2);
+    pieces.push_back(queen);
 
     //While application is running
     while (this->running)
@@ -85,21 +101,9 @@ void Game::Run() {
             }
         }
 
-        SDL_Rect srcRect;
-        srcRect.x = 0;
-        srcRect.y = 0;
-        srcRect.w = 161;
-        srcRect.h = 155;
-
-        SDL_Rect destRect;
-        destRect.x = 100;
-        destRect.y = 10;
-        destRect.w = 54;
-//        destRect.w = 161;
-        destRect.h = 52;
-//        destRect.h = 155;
-
-        SDL_BlitScaled(this->pieceSurface, &srcRect, gScreenSurface, &destRect);
+        for (auto & piece : pieces) {
+            piece.Draw(gScreenSurface);
+        }
 
         //Update the surface
         SDL_UpdateWindowSurface(gWindow);

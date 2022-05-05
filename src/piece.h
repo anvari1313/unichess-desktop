@@ -5,9 +5,27 @@
 #ifndef UNICHESS_PIECE_H
 #define UNICHESS_PIECE_H
 
+#include <SDL.h>
 
 class Piece {
-    
+public:
+    Piece(SDL_Surface *img, int startIndexX, int startIndexY);
+
+    int startIndexX;
+    int startIndexY;
+
+    void Draw(SDL_Surface *destSurface);
+
+    void Move(int x, int y);
+
+private:
+    SDL_Surface *img;
+
+    const int SourceWidth = 161;
+    const int SourceHeight = 155;
+
+    SDL_Rect srcRect;
+    SDL_Rect destRect;
 };
 
 

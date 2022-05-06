@@ -4,7 +4,7 @@
 
 #include "queen.h"
 
-Queen::Queen(SDL_Surface *img) : Piece(img, 1, 0)
+Queen::Queen(SDL_Texture *img, bool white) : Piece(img, 1, white)
 {
 
 }

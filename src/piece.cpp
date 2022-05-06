@@ -4,10 +4,13 @@
 
 #include "piece.h"
 
-Piece::Piece(SDL_Surface *img, int startX, int startY): img(img), startIndexX(startX), startIndexY(startY)
+Piece::Piece(SDL_Texture *img, int startX, bool white): img(img), startIndexX(startX), white(white)
 {
     srcRect.x = this->startIndexX * this->SourceWidth;
-    srcRect.y = this->startIndexY * this->SourceHeight;
+    if (white)
+        srcRect.y = 0;
+    else
+        srcRect.y = 1 * this->SourceHeight;
     srcRect.w = this->SourceWidth;
     srcRect.h = this->SourceHeight;
 
@@ -20,9 +23,9 @@ Piece::Piece(SDL_Surface *img, int startX, int startY): img(img), startIndexX(st
 
 }
 
-void Piece::Draw(SDL_Surface *destSurface)
+void Piece::Draw(SDL_Renderer *renderer)
 {
-    SDL_BlitScaled(this->img, &srcRect, destSurface, &destRect);
+    SDL_RenderCopy(renderer, this->img, &srcRect, &destRect);
 }
 
 void Piece::Move(int x, int y)

@@ -4,7 +4,7 @@
 
 #include "bishop.h"
 
-Bishop::Bishop(SDL_Surface *img) : Piece(img, 2, 0)
+Bishop::Bishop(SDL_Texture *img, bool white) : Piece(img, 2, white)
 {
 
 }

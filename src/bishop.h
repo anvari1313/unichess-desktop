@@ -11,7 +11,7 @@
 class Bishop : public Piece
 {
 public:
-    explicit Bishop(SDL_Surface *img);
+    explicit Bishop(SDL_Texture *img, bool white);
 
 };
 

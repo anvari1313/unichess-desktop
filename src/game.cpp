@@ -52,7 +52,6 @@ void Game::Init() {
                     return;
                 } else {
                     //Get window surface
-                    this->gScreenSurface = SDL_GetWindowSurface(this->gWindow);
                     this->pieceTexture = this->loadTexture("../resource/piece.png");
                 }
             }
@@ -145,29 +144,6 @@ void Game::Run() {
         SDL_RenderPresent(this->renderer);
     }
 
-}
-
-SDL_Surface *Game::loadSurface(const std::string &path)
-{
-    //The final optimized image
-    SDL_Surface *optimizedSurface = nullptr;
-
-    //Load image at specified path
-    SDL_Surface *loadedSurface = IMG_Load(path.c_str());
-    if (loadedSurface == nullptr) {
-        printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
-    } else {
-        //Convert surface to screen format
-        optimizedSurface = SDL_ConvertSurface(loadedSurface, gScreenSurface->format, 0);
-        if (optimizedSurface == nullptr) {
-            printf("Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
-        }
-
-        //Get rid of old loaded surface
-        SDL_FreeSurface(loadedSurface);
-    }
-
-    return optimizedSurface;
 }
 
 void Game::Close()

@@ -15,8 +15,8 @@
 
 Game::Game() {
     this->gWindow = nullptr;
-    this->gScreenSurface = nullptr;
-    this->pieceSurface = nullptr;
+    this->renderer = nullptr;
+    this->pieceTexture = nullptr;
 
     this->running = true;
 }
@@ -27,6 +27,11 @@ void Game::Init() {
         printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
         return;
     } else {
+        //Set texture filtering to linear
+        if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
+            printf("Warning: Linear texture filtering not enabled!");
+        }
+
         //Create window
         this->gWindow = SDL_CreateWindow("UniChess", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
                                          SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -34,16 +39,21 @@ void Game::Init() {
             printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
             return;
         } else {
-            //Initialize PNG loading
-            int imgFlags = IMG_INIT_PNG;
-            if (!(IMG_Init(imgFlags) & imgFlags)) {
-                printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+            //Create renderer for window
+            this->renderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
+            if (this->renderer == NULL) {
+                printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
                 return;
             } else {
-                //Get window surface
-                this->gScreenSurface = SDL_GetWindowSurface(this->gWindow);
-
-                this->pieceSurface = this->loadSurface("../resource/piece.png");
+                //Initialize PNG loading
+                int imgFlags = IMG_INIT_PNG;
+                if (!(IMG_Init(imgFlags) & imgFlags)) {
+                    printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+                    return;
+                } else {
+                    //Get window surface
+                    this->pieceTexture = this->loadTexture("../resource/piece.png");
+                }
             }
         }
     }
@@ -55,26 +65,26 @@ void Game::Run() {
     SDL_Event e;
 
     std::vector<Piece> pieces;
-    King k1(this->pieceSurface, true);
-    King k2(this->pieceSurface, true);
+    King k1(this->pieceTexture, true);
+    King k2(this->pieceTexture, true);
     k2.Move(120, 10);
 
-    Queen queen(this->pieceSurface, true);
+    Queen queen(this->pieceTexture, true);
     queen.Move(120, 50);
 
-    Bishop bishop(this->pieceSurface, true);
+    Bishop bishop(this->pieceTexture, true);
     bishop.Move(120, 100);
 
-    Knight knight(this->pieceSurface, true);
+    Knight knight(this->pieceTexture, true);
     knight.Move(220, 110);
 
-    Knight knight2(this->pieceSurface, false);
+    Knight knight2(this->pieceTexture, false);
     knight2.Move(220, 210);
 
-    Rock rock(this->pieceSurface, false);
+    Rock rock(this->pieceTexture, false);
     rock.Move(320, 110);
 
-    Pawn pawn(this->pieceSurface, false);
+    Pawn pawn(this->pieceTexture, false);
     pawn.Move(420, 110);
 
     pieces.push_back(k1);
@@ -125,49 +135,53 @@ void Game::Run() {
             }
         }
 
+
         for (auto & piece : pieces) {
-            piece.Draw(gScreenSurface);
+            piece.Draw(this->renderer);
         }
 
         //Update the surface
-        SDL_UpdateWindowSurface(gWindow);
+        SDL_RenderPresent(this->renderer);
     }
 
 }
 
-SDL_Surface *Game::loadSurface(const std::string &path)
+void Game::Close()
 {
-    //The final optimized image
-    SDL_Surface *optimizedSurface = nullptr;
+    SDL_DestroyTexture( this->pieceTexture);
+    this->pieceTexture = nullptr;
+
+    //Destroy window
+    SDL_DestroyRenderer(this->renderer);
+    SDL_DestroyWindow( this->gWindow );
+    this->renderer = nullptr;
+    this->gWindow = nullptr;
+
+    //Quit SDL subsystems
+    IMG_Quit();
+    SDL_Quit();
+}
+
+SDL_Texture *Game::loadTexture(std::string path)
+{
+    //The final texture
+    SDL_Texture *newTexture = NULL;
 
     //Load image at specified path
     SDL_Surface *loadedSurface = IMG_Load(path.c_str());
-    if (loadedSurface == nullptr) {
+    if (loadedSurface == NULL) {
         printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
     } else {
-        //Convert surface to screen format
-        optimizedSurface = SDL_ConvertSurface(loadedSurface, gScreenSurface->format, 0);
-        if (optimizedSurface == nullptr) {
-            printf("Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+        //Create texture from surface pixels
+        newTexture = SDL_CreateTextureFromSurface(this->renderer, loadedSurface);
+        if (newTexture == NULL) {
+            printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
         }
 
         //Get rid of old loaded surface
         SDL_FreeSurface(loadedSurface);
     }
 
-    return optimizedSurface;
-}
-
-void Game::Close()
-{
-    SDL_FreeSurface( this->pieceSurface);
-    this->pieceSurface = nullptr;
-
-    //Destroy window
-    SDL_DestroyWindow( this->gWindow );
-    this->gWindow = nullptr;
-
-    //Quit SDL subsystems
-    SDL_Quit();
+    return newTexture;
 }
 

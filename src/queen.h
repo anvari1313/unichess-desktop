@@ -10,7 +10,7 @@
 
 class Queen : public Piece{
 public:
-    explicit Queen(SDL_Surface *img, bool white);
+    explicit Queen(SDL_Texture *img, bool white);
 
 };
 

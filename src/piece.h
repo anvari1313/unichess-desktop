@@ -9,19 +9,19 @@
 
 class Piece {
 public:
-    Piece(SDL_Surface *img, int startIndexX, bool white);
+    Piece(SDL_Texture *img, int startIndexX, bool white);
 
     int startIndexX;
     int startIndexY;
 
     bool white;
 
-    void Draw(SDL_Surface *destSurface);
+    void Draw(SDL_Renderer *renderer);
 
     void Move(int x, int y);
 
 private:
-    SDL_Surface *img;
+    SDL_Texture *img;
 
     const int SourceWidth = 161;
     const int SourceHeight = 155;

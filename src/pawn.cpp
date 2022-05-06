@@ -4,7 +4,7 @@
 
 #include "pawn.h"
 
-Pawn::Pawn(SDL_Surface *img, bool white) : Piece(img, 5, white)
+Pawn::Pawn(SDL_Texture *img, bool white) : Piece(img, 5, white)
 {
 
 }

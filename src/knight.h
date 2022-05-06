@@ -11,7 +11,7 @@
 class Knight : public Piece
 {
 public:
-    explicit Knight(SDL_Surface *img, bool white);
+    explicit Knight(SDL_Texture *img, bool white);
 };
 
 

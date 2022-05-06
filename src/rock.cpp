@@ -4,6 +4,6 @@
 
 #include "rock.h"
 
-Rock::Rock(SDL_Surface *img, bool white) : Piece(img, 4, white) {
+Rock::Rock(SDL_Texture *img, bool white) : Piece(img, 4, white) {
 
 }

@@ -28,13 +28,17 @@ private:
     //The window we'll be rendering to
     SDL_Window *gWindow;
 
+    //The window renderer
+    SDL_Renderer *renderer;
+
     //The surface contained by the window
     SDL_Surface *gScreenSurface;
 
-    // Pieces surface
-    SDL_Surface *pieceSurface;
+    SDL_Texture *pieceTexture;
 
     SDL_Surface *loadSurface(const std::string &path);
+
+    SDL_Texture *loadTexture(std::string path);
 };
 
 

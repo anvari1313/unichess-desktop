@@ -10,7 +10,7 @@
 
 class Rock : public Piece {
 public:
-    explicit Rock(SDL_Surface *img, bool white);
+    explicit Rock(SDL_Texture *img, bool white);
 
 };
 

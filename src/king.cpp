@@ -4,7 +4,7 @@
 
 #include "king.h"
 
-King::King(SDL_Surface *img) : Piece(img, 0, 0)
+King::King(SDL_Surface *img, bool white) : Piece(img, 0, white)
 {
 
 }

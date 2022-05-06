@@ -4,10 +4,13 @@
 
 #include "piece.h"
 
-Piece::Piece(SDL_Surface *img, int startX, int startY): img(img), startIndexX(startX), startIndexY(startY)
+Piece::Piece(SDL_Surface *img, int startX, bool white): img(img), startIndexX(startX), white(white)
 {
     srcRect.x = this->startIndexX * this->SourceWidth;
-    srcRect.y = this->startIndexY * this->SourceHeight;
+    if (white)
+        srcRect.y = 0;
+    else
+        srcRect.y = 1 * this->SourceHeight;
     srcRect.w = this->SourceWidth;
     srcRect.h = this->SourceHeight;
 

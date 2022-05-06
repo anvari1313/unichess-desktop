@@ -55,23 +55,26 @@ void Game::Run() {
     SDL_Event e;
 
     std::vector<Piece> pieces;
-    King k1(this->pieceSurface);
-    King k2(this->pieceSurface);
+    King k1(this->pieceSurface, true);
+    King k2(this->pieceSurface, true);
     k2.Move(120, 10);
 
-    Queen queen(this->pieceSurface);
+    Queen queen(this->pieceSurface, true);
     queen.Move(120, 50);
 
-    Bishop bishop(this->pieceSurface);
+    Bishop bishop(this->pieceSurface, true);
     bishop.Move(120, 100);
 
-    Knight knight(this->pieceSurface);
+    Knight knight(this->pieceSurface, true);
     knight.Move(220, 110);
 
-    Rock rock(this->pieceSurface);
+    Knight knight2(this->pieceSurface, false);
+    knight2.Move(220, 210);
+
+    Rock rock(this->pieceSurface, false);
     rock.Move(320, 110);
 
-    Pawn pawn(this->pieceSurface);
+    Pawn pawn(this->pieceSurface, false);
     pawn.Move(420, 110);
 
     pieces.push_back(k1);
@@ -79,6 +82,7 @@ void Game::Run() {
     pieces.push_back(queen);
     pieces.push_back(bishop);
     pieces.push_back(knight);
+    pieces.push_back(knight2);
     pieces.push_back(rock);
     pieces.push_back(pawn);
 

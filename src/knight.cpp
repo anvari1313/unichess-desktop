@@ -4,7 +4,7 @@
 
 #include "knight.h"
 
-Knight::Knight(SDL_Surface *img) : Piece(img, 3, 0)
+Knight::Knight(SDL_Surface *img, bool white) : Piece(img, 3, white)
 {
 
 }

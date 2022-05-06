@@ -11,7 +11,7 @@
 class Pawn : public Piece
 {
 public:
-    explicit Pawn(SDL_Surface *img);
+    explicit Pawn(SDL_Surface *img, bool white);
 
 };
 

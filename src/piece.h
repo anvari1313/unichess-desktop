@@ -9,10 +9,12 @@
 
 class Piece {
 public:
-    Piece(SDL_Surface *img, int startIndexX, int startIndexY);
+    Piece(SDL_Surface *img, int startIndexX, bool white);
 
     int startIndexX;
     int startIndexY;
+
+    bool white;
 
     void Draw(SDL_Surface *destSurface);
 

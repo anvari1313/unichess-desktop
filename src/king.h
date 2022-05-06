@@ -9,7 +9,7 @@
 
 class King : public Piece {
 public:
-    explicit King(SDL_Surface *img);
+    explicit King(SDL_Surface *img, bool white);
 
 };
 

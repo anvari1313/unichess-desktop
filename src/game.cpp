@@ -8,6 +8,7 @@
 #include "piece.h"
 #include "king.h"
 #include "queen.h"
+#include "bishop.h"
 
 Game::Game() {
     this->gWindow = nullptr;
@@ -58,9 +59,14 @@ void Game::Run() {
     Queen queen(this->pieceSurface);
     queen.Move(120, 50);
 
+
+    Bishop bishop(this->pieceSurface);
+    bishop.Move(120, 100);
+
     pieces.push_back(k1);
     pieces.push_back(k2);
     pieces.push_back(queen);
+    pieces.push_back(bishop);
 
     //While application is running
     while (this->running)

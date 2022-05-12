@@ -93,9 +93,30 @@ void Game::Run() {
 //                        gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT];
                         break;
                 }
-            } else if (e.type == SDL_KEYUP) {
-//                gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT];
-                break;
+            }
+            else if( e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP )
+            {
+                //Get mouse position
+                int x, y;
+                SDL_GetMouseState( &x, &y );
+
+                auto b = board.Boundary();
+                if (x >= b->x && y >= b->y && x <= b->x + b->w && y <= b->y + b->h)
+                {
+                    //Mouse is inside button
+                    switch( e.type )
+                    {
+                        case SDL_MOUSEMOTION:
+                            break;
+
+                        case SDL_MOUSEBUTTONDOWN:
+                            break;
+
+                        case SDL_MOUSEBUTTONUP:
+                            board.Click(x, y);
+                            break;
+                    }
+                }
             }
         }
 

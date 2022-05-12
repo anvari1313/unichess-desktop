@@ -28,9 +28,8 @@
 
 Board::Board(SDL_Texture *pieceTexture)
 {
-
+    this->cells = {0};
     this->pieces;
-
     pieces = {
             BLACK_ROCK, BLACK_KNIGHT, BLACK_BISHOP, BLACK_QUEEN, BLACK_KING, BLACK_BISHOP, BLACK_KNIGHT, BLACK_ROCK,
             BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN,
@@ -41,13 +40,16 @@ Board::Board(SDL_Texture *pieceTexture)
             WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN,
             WHITE_ROCK, WHITE_KNIGHT, WHITE_BISHOP, WHITE_QUEEN, WHITE_KING, WHITE_BISHOP, WHITE_KNIGHT, WHITE_ROCK,
     };
+
+    this->boundryRect = new SDL_Rect;
+    this->boundryRect->x = 0;
+    this->boundryRect->y = 0;
+    this->boundryRect->w = 220;
+    this->boundryRect->h = 120;
 }
 
 void Board::Draw(SDL_Renderer *renderer)
 {
-    int width = 54;
-    int height = 52;
-
     int startPos = 0;
     for (int y = 0; y < 8; y++) {
         for (int x = 0; x < 8; x++) {
@@ -57,9 +59,19 @@ void Board::Draw(SDL_Renderer *renderer)
             rect.w = width;
             rect.h = height;
             if (startPos == 0) {
-                SDL_SetRenderDrawColor(renderer, 159, 84, 8, 255);
+                if (selectedCol == x && selectedRow == y) {
+                    SDL_SetRenderDrawColor(renderer, 59, 84, 8, 255);
+                } else {
+                    SDL_SetRenderDrawColor(renderer, 159, 84, 8, 255);
+                }
+
             } else {
-                SDL_SetRenderDrawColor(renderer, 159, 0, 180, 255);
+                if (selectedCol == x && selectedRow == y) {
+                    SDL_SetRenderDrawColor(renderer, 89, 0, 180, 255);
+                } else {
+                    SDL_SetRenderDrawColor(renderer, 159, 0, 180, 255);
+                }
+
             }
             SDL_RenderFillRect(renderer, &rect);
             startPos = 1 - startPos;
@@ -79,4 +91,15 @@ void Board::Draw(SDL_Renderer *renderer)
         }
     }
 
+}
+
+SDL_Rect *Board::Boundary()
+{
+    return this->boundryRect;
+}
+
+void Board::Click(int x, int y)
+{
+    selectedCol = (x - this->boundryRect->x) / width;
+    selectedRow = (y - this->boundryRect->y) / height;
 }

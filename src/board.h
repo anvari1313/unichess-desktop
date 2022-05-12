@@ -17,8 +17,21 @@ public:
 
     void Draw(SDL_Renderer *renderer);
 
+    SDL_Rect *Boundary();
+
+    void Click(int x, int y);
+
 private:
     std::array<std::array<Piece *, 8>, 8> pieces;
+    std::array<std::array<int, 8>, 8> cells;
+
+    int selectedRow = -1;
+    int selectedCol = -1;
+
+    SDL_Rect *boundryRect;
+
+    const int width = 54;
+    const int height = 52;
 };
 
 

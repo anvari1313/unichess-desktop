@@ -5,13 +5,7 @@
 #include "game.h"
 #include <SDL_image.h>
 #include <vector>
-#include "piece.h"
-#include "king.h"
-#include "queen.h"
-#include "bishop.h"
-#include "knight.h"
-#include "rock.h"
-#include "pawn.h"
+#include "board.h"
 
 Game::Game() {
     this->gWindow = nullptr;
@@ -64,37 +58,7 @@ void Game::Run() {
     //Event handler
     SDL_Event e;
 
-    std::vector<Piece> pieces;
-    King k1(this->pieceTexture, true);
-    King k2(this->pieceTexture, true);
-    k2.Move(120, 10);
-
-    Queen queen(this->pieceTexture, true);
-    queen.Move(120, 50);
-
-    Bishop bishop(this->pieceTexture, true);
-    bishop.Move(120, 100);
-
-    Knight knight(this->pieceTexture, true);
-    knight.Move(220, 110);
-
-    Knight knight2(this->pieceTexture, false);
-    knight2.Move(220, 210);
-
-    Rock rock(this->pieceTexture, false);
-    rock.Move(320, 110);
-
-    Pawn pawn(this->pieceTexture, false);
-    pawn.Move(420, 110);
-
-    pieces.push_back(k1);
-    pieces.push_back(k2);
-    pieces.push_back(queen);
-    pieces.push_back(bishop);
-    pieces.push_back(knight);
-    pieces.push_back(knight2);
-    pieces.push_back(rock);
-    pieces.push_back(pawn);
+    Board board(this->pieceTexture);
 
     //While application is running
     while (this->running)
@@ -135,10 +99,7 @@ void Game::Run() {
             }
         }
 
-
-        for (auto & piece : pieces) {
-            piece.Draw(this->renderer);
-        }
+        board.Draw(this->renderer);
 
         //Update the surface
         SDL_RenderPresent(this->renderer);

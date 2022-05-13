@@ -13,6 +13,7 @@ public:
 
     std::vector<SDL_Point> AvailableMoves() override;
 
+    bool IsKing() override;
 };
 
 

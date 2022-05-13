@@ -12,3 +12,8 @@ std::vector<SDL_Point> Rock::AvailableMoves()
 {
     return {};
 }
+
+bool Rock::IsKing()
+{
+    return false;
+}

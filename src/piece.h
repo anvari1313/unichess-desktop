@@ -23,6 +23,8 @@ public:
 
     virtual std::vector<SDL_Point> AvailableMoves() = 0;
 
+    virtual bool IsKing() = 0;
+
 private:
     SDL_Texture *img;
 

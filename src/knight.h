@@ -13,6 +13,8 @@ class Knight : public Piece
 public:
     std::vector<SDL_Point> AvailableMoves() override;
     explicit Knight(SDL_Texture *img, bool white);
+
+    bool IsKing() override;
 };
 
 

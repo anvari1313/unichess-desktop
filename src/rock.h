@@ -13,6 +13,8 @@ public:
     explicit Rock(SDL_Texture *img, bool white);
 
     std::vector<SDL_Point> AvailableMoves() override;
+
+    bool IsKing() override;
 };
 
 

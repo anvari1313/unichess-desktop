@@ -13,3 +13,8 @@ std::vector<SDL_Point> King::AvailableMoves()
 {
     return {};
 }
+
+bool King::IsKing()
+{
+    return true;
+}

@@ -13,3 +13,8 @@ std::vector<SDL_Point> Pawn::AvailableMoves()
 {
     return {};
 }
+
+bool Pawn::IsKing()
+{
+    return false;
+}

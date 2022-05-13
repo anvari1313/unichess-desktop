@@ -13,3 +13,8 @@ std::vector<SDL_Point> Bishop::AvailableMoves()
 {
     return {};
 }
+
+bool Bishop::IsKing()
+{
+    return false;
+}

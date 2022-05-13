@@ -26,9 +26,26 @@
 #define WHITE_KING new King(pieceTexture, true)
 #define WHITE_PAWN new Pawn(pieceTexture, true)
 
+#define BLACK_CELL_NORMAL_R 84
+#define BLACK_CELL_NORMAL_G 84
+#define BLACK_CELL_NORMAL_B 84
+
+RGB::RGB(int r, int g, int b): R(r), G(g), B(b) {}
+
+class ColorPallet1
+{
+public:
+    RGB BlackNormal = RGB(84,45,30);
+    RGB WhiteNormal = RGB(220, 181, 166);
+    RGB BlackHover = RGB(241, 68, 0);
+    RGB WhiteHover = RGB(150, 118, 148);
+    RGB Other = RGB(255, 188, 19);
+
+} COLOR_PALLET;
+
 Board::Board(SDL_Texture *pieceTexture)
 {
-    this->cells = {0};
+    this->cells = {Normal};
     this->pieces;
     pieces = {
             BLACK_ROCK, BLACK_KNIGHT, BLACK_BISHOP, BLACK_QUEEN, BLACK_KING, BLACK_BISHOP, BLACK_KNIGHT, BLACK_ROCK,
@@ -73,20 +90,32 @@ void Board::Draw(SDL_Renderer *renderer)
             rect.h = height;
             if (startPos == 0) {
                 if (selectedCol == x && selectedRow == y) {
-                    SDL_SetRenderDrawColor(renderer, 59, 84, 8, 255);
+                    auto p = COLOR_PALLET.BlackHover;
+                    SDL_SetRenderDrawColor(renderer, p.R, p.G, p.B, 255);
                 } else if (hoverCol == x && hoverRow == y) {
-                    SDL_SetRenderDrawColor(renderer, 159, 150, 8, 255);
+                    auto p = COLOR_PALLET.Other;
+                    SDL_SetRenderDrawColor(renderer, p.R, p.G, p.B, 100);
+                } else if (this->cells[y][x] == PathThrough) {
+                    auto p = COLOR_PALLET.Other;
+                    SDL_SetRenderDrawColor(renderer, p.R, p.G, p.B, 255);
                 } else {
-                    SDL_SetRenderDrawColor(renderer, 159, 84, 8, 255);
+                    auto p = COLOR_PALLET.BlackNormal;
+                    SDL_SetRenderDrawColor(renderer, p.R, p.G, p.B, 255);
                 }
 
             } else {
                 if (selectedCol == x && selectedRow == y) {
-                    SDL_SetRenderDrawColor(renderer, 89, 0, 180, 255);
+                    auto p = COLOR_PALLET.WhiteHover;
+                    SDL_SetRenderDrawColor(renderer, p.R, p.G, p.B, 255);
                 } else if (hoverCol == x && hoverRow == y) {
-                    SDL_SetRenderDrawColor(renderer, 159, 120, 180, 255);
+                    auto p = COLOR_PALLET.Other;
+                    SDL_SetRenderDrawColor(renderer, p.R, p.G, p.B, 100);
+                } else if (this->cells[y][x] == PathThrough) {
+                    auto p = COLOR_PALLET.Other;
+                    SDL_SetRenderDrawColor(renderer, p.R, p.G, p.B, 255);
                 } else {
-                    SDL_SetRenderDrawColor(renderer, 159, 0, 180, 255);
+                    auto p = COLOR_PALLET.WhiteNormal;
+                    SDL_SetRenderDrawColor(renderer, p.R, p.G, p.B, 255);
                 }
 
             }
@@ -120,9 +149,22 @@ void Board::Click(int x, int y)
 
     if (this->State == Neutral)
     {
-        selectedCol = col;
-        selectedRow = row;
-        this->State = PIECE_SELECTED;
+        if (this->pieces[row][col] != nullptr)
+        {
+            selectedCol = col;
+            selectedRow = row;
+            this->State = PIECE_SELECTED;
+            auto p = this->pieces[row][col];
+            auto moves = p->AvailableMoves();
+            for (const auto &item: moves)
+            {
+                this->cells[item.y][item.x] = PathThrough;
+            }
+        }
+        else
+        {
+            printf("This cell is empty and can not be selected\n");
+        }
     }
     else if (this->State == PIECE_SELECTED)
     {

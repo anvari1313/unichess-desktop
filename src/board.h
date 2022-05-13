@@ -24,22 +24,35 @@ public:
     void MouseMove(int x, int y);
 private:
     std::array<std::array<Piece *, 8>, 8> pieces;
-    std::array<std::array<int, 8>, 8> cells;
+    enum Cell {Normal, Selected, Hover, PathThrough};
 
+    std::array<std::array<Cell, 8>, 8> cells;
     int selectedRow = -1;
-    int selectedCol = -1;
 
+    int selectedCol = -1;
     int hoverRow = -1;
+
     int hoverCol = -1;
 
     SDL_Rect *boundaryRect;
-
     const int width = 54;
-    const int height = 52;
 
+    const int height = 52;
     enum State {Neutral, PIECE_SELECTED};
 
     State State;
+
+    bool availableMoves[8][8];
+};
+
+
+class RGB
+{
+public:
+    RGB(int r, int g, int b);
+    int R;
+    int G;
+    int B;
 };
 
 

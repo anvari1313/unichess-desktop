@@ -8,3 +8,8 @@ Knight::Knight(SDL_Texture *img, bool white) : Piece(img, 3, white)
 {
 
 }
+
+std::vector<SDL_Point> Knight::AvailableMoves()
+{
+    return {};
+}

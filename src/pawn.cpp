@@ -8,3 +8,8 @@ Pawn::Pawn(SDL_Texture *img, bool white) : Piece(img, 5, white)
 {
 
 }
+
+std::vector<SDL_Point> Pawn::AvailableMoves()
+{
+    return {};
+}

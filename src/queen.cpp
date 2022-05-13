@@ -8,3 +8,8 @@ Queen::Queen(SDL_Texture *img, bool white) : Piece(img, 1, white)
 {
 
 }
+
+std::vector<SDL_Point> Queen::AvailableMoves()
+{
+    return {};
+}

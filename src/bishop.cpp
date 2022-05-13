@@ -8,3 +8,8 @@ Bishop::Bishop(SDL_Texture *img, bool white) : Piece(img, 2, white)
 {
 
 }
+
+std::vector<SDL_Point> Bishop::AvailableMoves()
+{
+    return {};
+}

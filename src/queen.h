@@ -12,6 +12,7 @@ class Queen : public Piece{
 public:
     explicit Queen(SDL_Texture *img, bool white);
 
+    std::vector<SDL_Point> AvailableMoves() override;
 };
 
 

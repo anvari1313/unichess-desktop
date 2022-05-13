@@ -6,6 +6,7 @@
 #define UNICHESS_PIECE_H
 
 #include <SDL.h>
+#include <vector>
 
 class Piece {
 public:
@@ -19,6 +20,8 @@ public:
     void Draw(SDL_Renderer *renderer);
 
     void Move(int x, int y);
+
+    virtual std::vector<SDL_Point> AvailableMoves() = 0;
 
 private:
     SDL_Texture *img;

@@ -13,6 +13,7 @@ class Bishop : public Piece
 public:
     explicit Bishop(SDL_Texture *img, bool white);
 
+    std::vector<SDL_Point> AvailableMoves() override;
 };
 
 

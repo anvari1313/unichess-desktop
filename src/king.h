@@ -11,6 +11,8 @@ class King : public Piece {
 public:
     explicit King(SDL_Texture *img, bool white);
 
+    std::vector<SDL_Point> AvailableMoves() override;
+
 };
 
 

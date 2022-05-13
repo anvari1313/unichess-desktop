@@ -41,11 +41,11 @@ Board::Board(SDL_Texture *pieceTexture)
             WHITE_ROCK, WHITE_KNIGHT, WHITE_BISHOP, WHITE_QUEEN, WHITE_KING, WHITE_BISHOP, WHITE_KNIGHT, WHITE_ROCK,
     };
 
-    this->boundryRect = new SDL_Rect;
-    this->boundryRect->x = 0;
-    this->boundryRect->y = 0;
-    this->boundryRect->w = 8 * this->width;
-    this->boundryRect->h = 8 * this->height;
+    this->boundaryRect = new SDL_Rect;
+    this->boundaryRect->x = 0;
+    this->boundaryRect->y = 0;
+    this->boundaryRect->w = 8 * this->width;
+    this->boundaryRect->h = 8 * this->height;
 
     for (int i = 0; i < this->pieces.size(); ++i)
     {
@@ -108,17 +108,17 @@ void Board::Draw(SDL_Renderer *renderer)
 
 SDL_Rect *Board::Boundary()
 {
-    return this->boundryRect;
+    return this->boundaryRect;
 }
 
 void Board::Click(int x, int y)
 {
-    selectedCol = (x - this->boundryRect->x) / width;
-    selectedRow = (y - this->boundryRect->y) / height;
+    selectedCol = (x - this->boundaryRect->x) / width;
+    selectedRow = (y - this->boundaryRect->y) / height;
 }
 
 void Board::MouseMove(int x, int y)
 {
-    hoverCol = (x - this->boundryRect->x) / width;
-    hoverRow = (y - this->boundryRect->y) / height;
+    hoverCol = (x - this->boundaryRect->x) / width;
+    hoverRow = (y - this->boundaryRect->y) / height;
 }

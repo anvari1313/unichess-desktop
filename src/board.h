@@ -32,7 +32,7 @@ private:
     int hoverRow = -1;
     int hoverCol = -1;
 
-    SDL_Rect *boundryRect;
+    SDL_Rect *boundaryRect;
 
     const int width = 54;
     const int height = 52;

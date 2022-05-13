@@ -21,12 +21,16 @@ public:
 
     void Click(int x, int y);
 
+    void MouseMove(int x, int y);
 private:
     std::array<std::array<Piece *, 8>, 8> pieces;
     std::array<std::array<int, 8>, 8> cells;
 
     int selectedRow = -1;
     int selectedCol = -1;
+
+    int hoverRow = -1;
+    int hoverCol = -1;
 
     SDL_Rect *boundryRect;
 

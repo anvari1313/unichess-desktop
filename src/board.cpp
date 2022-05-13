@@ -44,8 +44,8 @@ Board::Board(SDL_Texture *pieceTexture)
     this->boundryRect = new SDL_Rect;
     this->boundryRect->x = 0;
     this->boundryRect->y = 0;
-    this->boundryRect->w = 220;
-    this->boundryRect->h = 120;
+    this->boundryRect->w = 8 * this->width;
+    this->boundryRect->h = 8 * this->height;
 }
 
 void Board::Draw(SDL_Renderer *renderer)
@@ -61,6 +61,8 @@ void Board::Draw(SDL_Renderer *renderer)
             if (startPos == 0) {
                 if (selectedCol == x && selectedRow == y) {
                     SDL_SetRenderDrawColor(renderer, 59, 84, 8, 255);
+                } else if (hoverCol == x && hoverRow == y) {
+                    SDL_SetRenderDrawColor(renderer, 159, 150, 8, 255);
                 } else {
                     SDL_SetRenderDrawColor(renderer, 159, 84, 8, 255);
                 }
@@ -68,6 +70,8 @@ void Board::Draw(SDL_Renderer *renderer)
             } else {
                 if (selectedCol == x && selectedRow == y) {
                     SDL_SetRenderDrawColor(renderer, 89, 0, 180, 255);
+                } else if (hoverCol == x && hoverRow == y) {
+                    SDL_SetRenderDrawColor(renderer, 159, 120, 180, 255);
                 } else {
                     SDL_SetRenderDrawColor(renderer, 159, 0, 180, 255);
                 }
@@ -102,4 +106,10 @@ void Board::Click(int x, int y)
 {
     selectedCol = (x - this->boundryRect->x) / width;
     selectedRow = (y - this->boundryRect->y) / height;
+}
+
+void Board::MouseMove(int x, int y)
+{
+    hoverCol = (x - this->boundryRect->x) / width;
+    hoverRow = (y - this->boundryRect->y) / height;
 }

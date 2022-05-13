@@ -107,6 +107,7 @@ void Game::Run() {
                     switch( e.type )
                     {
                         case SDL_MOUSEMOTION:
+                            board.MouseMove(x, y);
                             break;
 
                         case SDL_MOUSEBUTTONDOWN:

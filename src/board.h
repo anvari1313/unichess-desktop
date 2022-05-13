@@ -36,6 +36,10 @@ private:
 
     const int width = 54;
     const int height = 52;
+
+    enum State {Neutral, PIECE_SELECTED};
+
+    State State;
 };
 
 

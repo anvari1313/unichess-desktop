@@ -57,6 +57,8 @@ Board::Board(SDL_Texture *pieceTexture)
             }
         }
     }
+
+    this->State = Neutral;
 }
 
 void Board::Draw(SDL_Renderer *renderer)
@@ -113,8 +115,23 @@ SDL_Rect *Board::Boundary()
 
 void Board::Click(int x, int y)
 {
-    selectedCol = (x - this->boundaryRect->x) / width;
-    selectedRow = (y - this->boundaryRect->y) / height;
+    auto col = (x - this->boundaryRect->x) / width;
+    auto row = (y - this->boundaryRect->y) / height;
+
+    if (this->State == Neutral)
+    {
+        selectedCol = col;
+        selectedRow = row;
+        this->State = PIECE_SELECTED;
+    }
+    else if (this->State == PIECE_SELECTED)
+    {
+        this->pieces[selectedRow][selectedCol]->Move(col * this->width, row * this->height);
+        std::swap(this->pieces[row][col], this->pieces[selectedRow][selectedCol]);
+        printf("Move (%d, %d) -> (%d, %d)\n", selectedRow, selectedCol, row, col);
+        this->State = Neutral;
+    }
+
 }
 
 void Board::MouseMove(int x, int y)

@@ -46,6 +46,17 @@ Board::Board(SDL_Texture *pieceTexture)
     this->boundryRect->y = 0;
     this->boundryRect->w = 8 * this->width;
     this->boundryRect->h = 8 * this->height;
+
+    for (int i = 0; i < this->pieces.size(); ++i)
+    {
+        for (int j = 0; j < this->pieces[0].size(); ++j)
+        {
+            if (pieces[j][i] != nullptr)
+            {
+                pieces[j][i]->Move(i * width, j * height);
+            }
+        }
+    }
 }
 
 void Board::Draw(SDL_Renderer *renderer)
@@ -89,12 +100,10 @@ void Board::Draw(SDL_Renderer *renderer)
         {
             if (pieces[j][i] != nullptr)
             {
-                pieces[j][i]->Move(i * width, j * height);
                 pieces[j][i]->Draw(renderer);
             }
         }
     }
-
 }
 
 SDL_Rect *Board::Boundary()

@@ -4,12 +4,12 @@
 
 #include "bishop.h"
 
-Bishop::Bishop(SDL_Texture *img, bool white) : Piece(img, 2, white)
+Bishop::Bishop(SDL_Texture *img, bool white) : Piece(img, 2, white, true)
 {
 
 }
 
-std::vector<SDL_Point> Bishop::AvailableMoves()
+std::vector<SDL_Point> Bishop::AvailableMoves(BoardOmniscient *omniscient)
 {
     return {};
 }

@@ -4,12 +4,12 @@
 
 #include "queen.h"
 
-Queen::Queen(SDL_Texture *img, bool white) : Piece(img, 1, white)
+Queen::Queen(SDL_Texture *img, bool white) : Piece(img, 1, white, true)
 {
 
 }
 
-std::vector<SDL_Point> Queen::AvailableMoves()
+std::vector<SDL_Point> Queen::AvailableMoves(BoardOmniscient *omniscient)
 {
     return {};
 }

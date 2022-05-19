@@ -4,12 +4,12 @@
 
 #include "king.h"
 
-King::King(SDL_Texture *img, bool white) : Piece(img, 0, white)
+King::King(SDL_Texture *img, bool white) : Piece(img, 0, white, false)
 {
 
 }
 
-std::vector<SDL_Point> King::AvailableMoves()
+std::vector<SDL_Point> King::AvailableMoves(BoardOmniscient *omniscient)
 {
     return {};
 }

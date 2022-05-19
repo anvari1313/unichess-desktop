@@ -11,7 +11,7 @@
 class Knight : public Piece
 {
 public:
-    std::vector<SDL_Point> AvailableMoves() override;
+    std::vector<SDL_Point> AvailableMoves(BoardOmniscient *omniscient) override;
     explicit Knight(SDL_Texture *img, bool white);
 
     bool IsKing() override;

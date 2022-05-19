@@ -4,12 +4,12 @@
 
 #include "knight.h"
 
-Knight::Knight(SDL_Texture *img, bool white) : Piece(img, 3, white)
+Knight::Knight(SDL_Texture *img, bool white) : Piece(img, 3, white, true)
 {
 
 }
 
-std::vector<SDL_Point> Knight::AvailableMoves()
+std::vector<SDL_Point> Knight::AvailableMoves(BoardOmniscient *omniscient)
 {
     return {};
 }

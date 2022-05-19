@@ -4,14 +4,17 @@
 
 #include "pawn.h"
 
-Pawn::Pawn(SDL_Texture *img, bool white) : Piece(img, 5, white)
+Pawn::Pawn(SDL_Texture *img, bool white) : Piece(img, 5, white, true)
 {
 
 }
 
-std::vector<SDL_Point> Pawn::AvailableMoves()
+std::vector<SDL_Point> Pawn::AvailableMoves(BoardOmniscient *omniscient)
 {
-    return {};
+    return {
+            {2, 2},
+            {3,3}
+    };
 }
 
 bool Pawn::IsKing()

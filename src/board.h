@@ -9,8 +9,9 @@
 #include <vector>
 #include <array>
 #include "piece.h"
+#include "board_omniscient.h"
 
-class Board
+class Board : public virtual BoardOmniscient
 {
 public:
     explicit Board(SDL_Texture *pieceTexture);
@@ -22,6 +23,8 @@ public:
     void Click(int x, int y);
 
     void MouseMove(int x, int y);
+
+    void WhatIsAt() override;
 private:
     std::array<std::array<Piece *, 8>, 8> pieces;
     enum Cell {Normal, Selected, Hover, PathThrough};

@@ -26,10 +26,6 @@
 #define WHITE_KING new King(pieceTexture, true)
 #define WHITE_PAWN new Pawn(pieceTexture, true)
 
-#define BLACK_CELL_NORMAL_R 84
-#define BLACK_CELL_NORMAL_G 84
-#define BLACK_CELL_NORMAL_B 84
-
 RGB::RGB(int r, int g, int b): R(r), G(g), B(b) {}
 
 class ColorPallet1
@@ -40,6 +36,7 @@ public:
     RGB BlackHover = RGB(241, 68, 0);
     RGB WhiteHover = RGB(150, 118, 148);
     RGB Other = RGB(255, 188, 19);
+    RGB Other2 = RGB(250, 180, 10);
 
 } COLOR_PALLET;
 
@@ -155,7 +152,7 @@ void Board::Click(int x, int y)
             selectedRow = row;
             this->State = PIECE_SELECTED;
             auto p = this->pieces[row][col];
-            auto moves = p->AvailableMoves();
+            auto moves = p->AvailableMoves(this);
             for (const auto &item: moves)
             {
                 this->cells[item.y][item.x] = PathThrough;
@@ -173,11 +170,15 @@ void Board::Click(int x, int y)
         printf("Move (%d, %d) -> (%d, %d)\n", selectedRow, selectedCol, row, col);
         this->State = Neutral;
     }
-
 }
 
 void Board::MouseMove(int x, int y)
 {
     hoverCol = (x - this->boundaryRect->x) / width;
     hoverRow = (y - this->boundaryRect->y) / height;
+}
+
+void Board::WhatIsAt()
+{
+
 }

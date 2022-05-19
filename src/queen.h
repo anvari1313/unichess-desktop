@@ -12,7 +12,7 @@ class Queen : public Piece{
 public:
     explicit Queen(SDL_Texture *img, bool white);
 
-    std::vector<SDL_Point> AvailableMoves() override;
+    std::vector<SDL_Point> AvailableMoves(BoardOmniscient *omniscient) override;
 
     bool IsKing() override;
 };

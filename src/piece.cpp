@@ -4,7 +4,7 @@
 
 #include "piece.h"
 
-Piece::Piece(SDL_Texture *img, int startX, bool white): img(img), startIndexX(startX), white(white)
+Piece::Piece(SDL_Texture *img, int startX, bool white, bool kickable): img(img), startIndexX(startX), white(white), _kickable(kickable)
 {
     srcRect.x = this->startIndexX * this->SourceWidth;
     if (white)
@@ -32,4 +32,9 @@ void Piece::Move(int x, int y)
 {
     destRect.x = x;
     destRect.y = y;
+}
+
+bool Piece::Kickable()
+{
+    return this->_kickable;
 }
